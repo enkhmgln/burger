@@ -2,13 +2,18 @@ import React from "react";
 import css from "./style.module.css";
 import Logo from "../Logo";
 import logo from "../../assets/images/burger-logo.png";
+import Menu from "../Menu";
 
-const Toolbar = () => {
+const Toolbar = (props) => {
   return (
-    <header className={css.toolbar}>
-      <div>Sidebar</div>
+    <header className={css.Toolbar}>
+      <div onClick={props.toggleSideBar} className={css.toggleSideBar}>
+        <i className="fa-solid fa-bars"></i>
+      </div>
       <Logo logo={logo} />
-      <nav>Цэс</nav>
+      <nav className={css.HideOnMobile}>
+        <Menu />
+      </nav>
     </header>
   );
 };

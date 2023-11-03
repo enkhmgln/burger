@@ -1,14 +1,32 @@
-.toolbar {
-  background-color: #703b09;
+.Toolbar {
+  height: 3.4rem;
+  width: 100%;
   position: fixed;
   top: 0;
   left: 0;
-  padding: 0.2rem;
-  width: 100%;
+  background-color: #703b09;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  z-index: 100;
-  color: #fff;
+  padding: 0;
+  box-sizing: border-box;
+  z-index: 90;
+  color: white;
+  font-size: 20px;
+  padding: 0 0.4rem;
+}
+.toggleSideBar {
+  display: none;
+}
+@media screen and (max-width: 720px) {
+  .Toolbar {
+    padding: 0 1rem;
+  }
+  .HideOnMobile {
+    display: none;
+  }
+  .toggleSideBar {
+    font-size: 2rem;
+    display: block;
+  }
 }

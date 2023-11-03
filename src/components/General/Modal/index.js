@@ -4,7 +4,7 @@ import Shadow from "../Shadow";
 const Modal = ({ children, closeConfirmOrder, confirmOrder }) => {
   return (
     <>
-      <Shadow show={confirmOrder} closeConfirmOrder={closeConfirmOrder} />
+      <Shadow show={confirmOrder} close={closeConfirmOrder} />
       <div
         className={css.Modal}
         style={{

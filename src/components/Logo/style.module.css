@@ -1,9 +1,11 @@
-.Container {
-  background-color: #fff;
-  width: 3rem;
-  border-radius: 3px;
+.Logo {
+  background-color: white;
+  padding: 0.5rem;
+  height: 80%;
+  border-radius: 0.3rem;
+  box-sizing: border-box;
 }
-.Container img {
-  width: 100%;
+
+.Logo img {
   height: 100%;
 }

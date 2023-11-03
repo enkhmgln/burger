@@ -1,0 +1,10 @@
+@media screen and (min-width: 720px) {
+  .Menu {
+    list-style: none;
+    display: flex;
+    flex-flow: row;
+    margin: 0px;
+    padding: 0px;
+    align-items: center;
+  }
+}
