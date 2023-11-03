@@ -1,0 +1,29 @@
+.btn {
+  padding: 0.6rem;
+  margin: 0.3rem;
+  background-color: inherit;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+/* .btn:first-of-type {
+  margin-left: 0;
+} */
+.success {
+  background-color: #3daf57;
+  color: #fff;
+}
+.success:hover {
+  background-color: #52b86a;
+}
+
+/* Error Alert Style */
+.error {
+  background-color: #dc3545;
+  color: #fff;
+}
+.error:hover {
+  background-color: #e4606d;
+}
