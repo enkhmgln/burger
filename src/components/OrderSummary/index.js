@@ -7,6 +7,7 @@ const OrderSummary = ({
   ingredients,
   INGREDIENT_NAMES,
   closeConfirmOrder,
+  onContinue,
 }) => {
   return (
     <div className={css.OrderSummary}>
@@ -26,7 +27,7 @@ const OrderSummary = ({
       </p>
       <div>
         <Button cName="error" text="ТАТГАЛЗАХ" btnOnClick={closeConfirmOrder} />
-        <Button cName="success" text="ҮРГЭЛЖЛҮҮЛЭХ" />
+        <Button cName="success" text="ҮРГЭЛЖЛҮҮЛЭХ" btnOnClick={onContinue} />
       </div>
     </div>
   );

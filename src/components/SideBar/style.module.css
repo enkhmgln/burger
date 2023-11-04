@@ -7,17 +7,18 @@
   top: 0;
   left: 0;
   padding: 2.8rem 2.4rem;
-  transition: transform ease-out 0.3s;
+  transition: all 0.6s ease-out;
 }
 .Logo {
   height: 15%;
 }
 .Open {
   transform: translateX(0);
+  opacity: 1;
 }
 .Close {
-  transform: translateX(-100);
-  display: none;
+  transform: translateX(-100%);
+  opacity: 0;
 }
 @media screen and (min-width: 720px) {
   .SideBar {
