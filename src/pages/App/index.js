@@ -3,6 +3,10 @@ import css from "./style.module.css";
 import Toolbar from "../../components/Toolbar";
 import BurgerPage from "../BurgerPage";
 import SideBar from "../../components/SideBar";
+import { Route, Routes } from "react-router-dom";
+import OrderPage from "../OrderPage";
+import ShippingPage from "../ShippingPage";
+import ContactData from "../../components/ContactData";
 
 class App extends Component {
   constructor() {
@@ -26,11 +30,14 @@ class App extends Component {
           toggleSideBar={this.toggleSideBar}
         />
         <main className={css.main}>
-          <BurgerPage />
+          <Routes>
+            <Route path="/" Component={BurgerPage} />
+            <Route path="/shipping" Component={ShippingPage} />
+            <Route path="/orders" Component={OrderPage} />
+          </Routes>
         </main>
       </div>
     );
   }
 }
-
 export default App;

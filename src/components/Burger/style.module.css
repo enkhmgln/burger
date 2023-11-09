@@ -1,5 +1,5 @@
 .burger {
-  width: 30rem;
+  width: 700px;
   height: 30rem;
   margin: auto;
   text-align: center;
@@ -13,7 +13,7 @@
 
 @media screen and (max-width: 720px) {
   .burger {
-    width: 20rem;
+    width: 90%;
     height: 24rem;
     font-size: 15px;
   }

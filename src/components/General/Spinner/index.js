@@ -6,8 +6,8 @@ const Spinner = (props) => {
   return (
     props.spinner && (
       <div>
-        <Shadow show={props.spinner} />
         <div className={css.loader}></div>
+        <Shadow show={props.spinner} />
       </div>
     )
   );

@@ -6,8 +6,8 @@ const Menu = () => {
   return (
     <>
       <ul className={css.Menu}>
-        <MenuItem active={true} link="/" text="ШИНЭ ЗАХИАЛГА" />
-        <MenuItem link="/login" text="НЭВТРЭХ" />
+        <MenuItem link="/" text="ШИНЭ ЗАХИАЛГА" />
+        <MenuItem link="/orders" text="ЗАХИАЛГУУД" />
       </ul>
     </>
   );
