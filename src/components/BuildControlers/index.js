@@ -6,7 +6,7 @@ const BuildControllers = (props) => {
   return (
     <div className={css.BuildControls}>
       <p>
-        Burger price : <strong>{props.price}</strong>
+        Бургерийн үнэ : <strong>{props.price}</strong>
       </p>
       {Object.entries(props.INGREDIENT_NAMES).map((el, index) => {
         return (
