@@ -6,7 +6,6 @@ import SideBar from "../../components/SideBar";
 import { Route, Routes } from "react-router-dom";
 import OrderPage from "../OrderPage";
 import ShippingPage from "../ShippingPage";
-import ContactData from "../../components/ContactData";
 import LoginPage from "../LoginPage";
 class App extends Component {
   constructor() {

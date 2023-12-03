@@ -5,6 +5,15 @@ import Button from "../../components/General/Button";
 const Login = () => {
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
+  const [matchedPassword , setMatchedPassword] = useState(false)
+  const validatePassword = () => {
+    if(password1  !== password2){
+      setMatchedPassword(true)
+     }
+     else {
+      setMatchedPassword(false)
+     }
+  }
 
   return (
     <div className={css.Login}>
@@ -24,8 +33,8 @@ const Login = () => {
           setPassword2(event.target.value);
         }}
       />
-      <Button cName="success" text="Нэвтрэх" />
-      {password1 !== password2 ? <p> Нууц үг таарахгүй байна.</p> : null}
+      <Button cName="success" text="Нэвтрэх"  btnOnClick = {validatePassword}/>
+      {matchedPassword ? <p className={css.PasswordNotMatching}> Нууц үг  хоорондоо таарахгүй байна.</p> : null}
     </div>
   );
 };

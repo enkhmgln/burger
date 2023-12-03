@@ -1,10 +1,13 @@
-const add_ingredient = () => {
+export const addIngredient = (ortsNer) => {
     return {
-        type: 'ADD_INGREDIENT'
+        type: 'ADD_INGREDIENT',
+        ortsNer : ortsNer
     }
 }
-const remove_ingredient = () => {
+export const removeIngredient = (ortsNer) => {
     return {
-        type: 'REMOVE_INGREDIENT'
+        type: 'REMOVE_INGREDIENT',
+        ortsNer
+
     }
 }

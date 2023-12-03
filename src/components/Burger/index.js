@@ -1,4 +1,6 @@
 import React from "react";
+import {connect} from 'react-redux'
+
 import BurgerIngredient from "../BurgerIngredient";
 import css from "./style.module.css";
 
@@ -22,5 +24,10 @@ const Burger = (props) => {
     </div>
   );
 };
+const mapStateToProps = state => {
+  return {
+    ingredients : state.ingredients
+  }
+}
 
-export default Burger;
+export default connect(mapStateToProps)(Burger);

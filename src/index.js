@@ -7,7 +7,7 @@ import { createStore} from 'redux'
 
 import App from "./pages/App";
 import "./index.css";
-import { burgerReducer } from "./redux/reducers/burgerReducer";
+import burgerReducer  from "./redux/reducers/burgerReducer";
 
 const store = createStore(
   burgerReducer,

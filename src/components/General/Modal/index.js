@@ -1,10 +1,10 @@
 import React from "react";
 import css from "./modal.module.css";
 import Shadow from "../Shadow";
-const Modal = ({ children, closeConfirmOrder, confirmOrder }) => {
+const Modal = ({ children, closeConfirmModal, confirmOrder }) => {
   return (
     <>
-      <Shadow show={confirmOrder} close={closeConfirmOrder} />
+      <Shadow show={confirmOrder} close={closeConfirmModal} />
       <div
         className={css.Modal}
         style={{

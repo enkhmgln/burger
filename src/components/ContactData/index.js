@@ -4,12 +4,14 @@ import {connect} from 'react-redux'
 import css from "./style.module.css";
 import Button from "../General/Button";
 import axios from "../../axios";
+import Spinner from "../General/Spinner";
 
 class ContactData extends React.Component {
   state = {
     name: null,
     street: null,
     city: null,
+    spinner : false
   };
   getName = (event) => {
     this.setState({ name: event.target.value });
@@ -31,39 +33,46 @@ class ContactData extends React.Component {
         street: this.state.street,
       },
     };
-    axios.post('/orders.json' , order)
+    axios.post('/orders.json' , order).then(this.setState({spinner:true}))
     .catch((err)=> {
       console.log(err)
+    }).finally(()=> {
+      this.setState({spinner:false});
+
     })
 
 
   }
   render() {
     return (
-      <div className={css.ContactData}>
-        <input
-          onChange={this.getName}
-          type="text"
-          name="mame"
-          placeholder="Таны нэр"
-        />
-        <input
-          onChange={this.getStreet}
-          type="text"
-          name="street"
-          placeholder="Таны хаяг"
-        />
-        <input
-          onChange={this.getCity}
-          type="text"
-          name="city"
-          placeholder="Таны хот"
-        />
-        <Button text="ЗАХИАЛГЫГ ЦУЦЛАХ" cName="error" />
-        <Button text="Илгээх" cName="success" btnOnClick={this.saveOrder} />
-      </div>
+      this.state.spinner ? <Spinner spinner={this.state.spinner}/> : (
+        <div className={css.ContactData}>
+          <h4>Нийт үнэ : {this.props.price}₮ </h4>
+          <input
+            onChange={this.getName}
+            type="text"
+            name="name"
+            placeholder="Таны нэр"
+          />
+          <input
+            onChange={this.getStreet}
+            type="text"
+            name="street"
+            placeholder="Таны хаяг"
+          />
+          <input
+            onChange={this.getCity}
+            type="text"
+            name="city"
+            placeholder="Таны хот"
+          />
+          <Button text="ЗАХИАЛГЫГ ЦУЦЛАХ" cName="error" />
+          <Button text="ИЛГЭЭХ" cName="success" btnOnClick={this.saveOrder} />
+        </div>
+      )
     );
   }
+  
 }
 const mapStateToProps = (state) => {
   return {
