@@ -1,12 +1,15 @@
 import React from "react";
+import {connect} from 'react-redux'
+
 import css from "./style.module.css";
 import Button from "../General/Button";
+import axios from "../../axios";
+
 class ContactData extends React.Component {
   state = {
-    dun: 0,
-    name: "",
-    street: "",
-    city: "",
+    name: null,
+    street: null,
+    city: null,
   };
   getName = (event) => {
     this.setState({ name: event.target.value });
@@ -17,6 +20,24 @@ class ContactData extends React.Component {
   getCity = (event) => {
     this.setState({ city: event.target.value });
   };
+
+  saveOrder = () => {
+    const order = {
+      orts: this.props.ingredients,
+      dun: this.props.price,
+      address: {
+        name: this.state.name,
+        city: this.state.city,
+        street: this.state.street,
+      },
+    };
+    axios.post('/orders.json' , order)
+    .catch((err)=> {
+      console.log(err)
+    })
+
+
+  }
   render() {
     return (
       <div className={css.ContactData}>
@@ -39,10 +60,16 @@ class ContactData extends React.Component {
           placeholder="Таны хот"
         />
         <Button text="ЗАХИАЛГЫГ ЦУЦЛАХ" cName="error" />
-        <Button text="Илгээх" cName="success" />
+        <Button text="Илгээх" cName="success" btnOnClick={this.saveOrder} />
       </div>
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    ingredients: state.ingredients,
+    price : state.price
+  }
+}
 
-export default ContactData;
+export default connect(mapStateToProps)(ContactData);

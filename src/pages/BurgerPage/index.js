@@ -36,7 +36,7 @@ class BurgerBuilder extends React.Component {
   closeConfirmOrder = () => {
     this.setState({ confirmOrder: false });
   };
-  onContinue = () => {
+        onContinue = () => {
     this.closeConfirmOrder();
 
     const order = {
@@ -106,23 +106,7 @@ class BurgerBuilder extends React.Component {
           )}
         </Modal>
         <Spinner spinner={this.state.spinner} />
-
-        {/* {this.state.spinner ? (
-          <Spinner />
-        ) : (
-          <p
-            style={{
-              textAlign: "center",
-              fontSize: "20px",
-              fontWeight: "bold",
-              padding: "1rem",
-            }}
-          >
-            Сүүлд захиалга хийсэн хаяг: {this.state.lastCustomerDistrict}
-          </p>
-        )} */}
         <Burger ingredients={this.state.ingredients} />
-
         <BurgerControlers
           showConfirmOrder={this.showConfirmOrder}
           INGREDIENT_NAMES={this.state.INGREDIENT_NAMES}
