@@ -35,7 +35,7 @@
 }
 
 .OrderButton:not(:disabled) {
-  animation: enable 0.3s linear;
+  animation: enabble 0.3s linear;
 }
 
 @keyframes enable {

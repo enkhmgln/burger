@@ -8,6 +8,8 @@ const Menu = () => {
       <ul className={css.Menu}>
         <MenuItem link="/" text="ШИНЭ ЗАХИАЛГА" />
         <MenuItem link="/orders" text="ЗАХИАЛГУУД" />
+        <MenuItem link="/login" text="НЭВТРЭХ" />
+        <MenuItem link="/sign-up" text="БҮРТГҮҮЛЭХ" />
       </ul>
     </>
   );

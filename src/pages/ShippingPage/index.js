@@ -6,7 +6,7 @@ import ContactData from "../../components/ContactData";
 import Spinner from "../../components/General/Spinner";
 
 class ShippingPage extends React.Component {
-  showContactInfo = () => {};
+
   render() {
     return  this.props.newOrderStatus.saving ? (
       <Spinner />

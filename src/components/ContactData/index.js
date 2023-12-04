@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import * as actions from "../../redux/actions/orderAction";
@@ -31,6 +31,11 @@ const ContactData = (props) => {
     // this.setState({ city: event.target.value });`
     setInfo({ ...info, city: event.target.value });
   };
+  useEffect(()=> {
+    if(props.newOrderStatus.finished && !props.newOrderStatus.error) {
+      nav('/orders')
+    }
+  }, [props.newOrderStatus.finished , props.newOrderStatus.error , nav])
 
   const saveOrder = () => {
     const order = {
@@ -43,9 +48,7 @@ const ContactData = (props) => {
       },
     };
     props.saveOrder(order);
-    if(props.newOrderStatus.finished && !props.newOrderStatus.error) {
-      nav('/orders')
-    }
+  
   };  
 
   const goBack = () => {

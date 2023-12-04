@@ -7,6 +7,7 @@ import { Route, Routes } from "react-router-dom";
 import OrderPage from "../OrderPage";
 import ShippingPage from "../ShippingPage";
 import LoginPage from "../LoginPage";
+import SignUpPage from "../SignUpPage";
 class App extends Component {
   constructor() {
     super();
@@ -34,6 +35,7 @@ class App extends Component {
             <Route path="/shipping" Component={ShippingPage} />
             <Route path="/orders" Component={OrderPage} />
             <Route path="/login" Component={LoginPage} />
+            <Route path="/sign-up" Component={SignUpPage} />
           </Routes>
         </main>
       </div>
