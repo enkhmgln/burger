@@ -10,7 +10,7 @@ const BuildControler = (props) => {
         className={css.Less}
         disabled={disabledButton[props.type]}
         onClick={() => {
-          props.ortsHasah(props.type);
+          props.removeIngredient(props.type);
         }}
       >
         Хасах
@@ -18,7 +18,7 @@ const BuildControler = (props) => {
       <button
         className={css.More}
         onClick={() => {
-          props.ortsNemeh(props.type);
+          props.addIngredient(props.type);
         }}
       >
         Нэмэх

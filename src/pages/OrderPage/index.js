@@ -1,33 +1,43 @@
 import React from "react";
+import {connect} from 'react-redux'
+
 import css from "./style.module.css";
+
 import Order from "../../components/Order";
 import axios from "../../axios";
 import Spinner from "../../components/General/Spinner";
+import * as actions from '../../redux/actions/orderAction'
 
 class OrderPage extends React.Component {
-  state = {
-    orders: [],
-    spinner: false,
-  };
+  // state = {
+  //   orders:[],
+  //   spinner: false,
+  // };
   componentDidMount() {
-    this.setState({ spinner: true });
-    axios
-      .get("/orders.json")
-      .then((res) => {
-        this.setState({ orders: Object.entries(res.data).reverse() });
-      })
-      .finally(() => {
-        this.setState({ spinner: false });
-      });
+    this.props.getOrders()
+    // this.setState({ spinner: true });
+    // axios
+    //   .get("/orders.json")
+    //   .then((res) => {
+    //     this.setState({ orders: Object.entries(res.data).reverse() });
+    //   })
+    //   .catch(err=> {
+    //     console.log(err)
+    //   })
+    //   .finally(() => {
+    //     this.setState({ spinner: false });
+    //   });
   }
   render() {
+    // Ирсэн json - ыг string болгодог функц ==> JSON.stringify
+    // console.log(JSON.stringify(this.state.orders))
     return (
       <div className={css.OrderPage}>
         <h1>Бүх захиалгууд</h1>
-        {this.state.spinner ? (
-          <Spinner spinner={this.state.spinner} />
+        {this.props.spinner ? (
+          <Spinner spinner={this.props.spinner} />
         ) : (
-          this.state.orders.map((el) => {
+          this.props.orders.map((el) => {
             let address = el[1].address;
             return (
               <Order
@@ -45,5 +55,17 @@ class OrderPage extends React.Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    orders:state.orderReducer.orders,
+    spinner : state.orderReducer.spinner
+  }
+}
 
-export default OrderPage;
+const mapDispatchToProps =(dispatch) => {
+  return {
+    getOrders : ()=> {dispatch(actions.getOrders())}
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(OrderPage);

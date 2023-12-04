@@ -43,9 +43,9 @@ const onContinue = () => {
 
 const mapStateToProps = (state) => {
   return {
-    ingredients : state.ingredients,
-    price : state.price,
-    ingredientNames : state.ingredientNames
+    ingredients : state.burgerReducer.ingredients,
+    price : state.burgerReducer.price,
+    ingredientNames : state.burgerReducer.ingredientNames
   }
 }
 
