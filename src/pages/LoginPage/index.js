@@ -17,7 +17,7 @@ const Login = () => {
         }}
       />
      
-      <Button cName="success" text="Нэвтрэх"  btnOnClick />
+      <Button cName="success" text="Нэвтрэх"/>
 
     </div>
   );

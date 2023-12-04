@@ -12,7 +12,8 @@
   }
   .PasswordNotMatching {
     color: red;
-    font-size: 20px;
+    font-size: 15px;
+    font-weight: bolder;
   }
   @media screen and (max-width: 720px) {
     .SignUp input {
