@@ -1,84 +1,96 @@
-import React from "react";
-import {connect} from 'react-redux'
+import React, { useState } from "react";
+import { connect } from "react-redux";
+
+import * as actions from "../../redux/actions/orderAction";
 
 import css from "./style.module.css";
 import Button from "../General/Button";
-import axios from "../../axios";
-import Spinner from "../General/Spinner";
+import { useNavigate } from "react-router-dom";
 
-class ContactData extends React.Component {
-  state = {
+const ContactData = (props) => {
+  const [info, setInfo] = useState({
     name: null,
     street: null,
     city: null,
-    spinner : false
+  });
+  const nav = useNavigate();
+  // state = {
+  //   name: null,
+  //   street: null,
+  //   city: null,
+  // };
+  const getName = (event) => {
+    // this.setState({ name: event.target.value });
+    setInfo({ ...info, name: event.target.value });
   };
-  getName = (event) => {
-    this.setState({ name: event.target.value });
+  const getStreet = (event) => {
+    // this.setState({ street: event.target.value });
+    setInfo({ ...info, street: event.target.value });
   };
-  getStreet = (event) => {
-    this.setState({ street: event.target.value });
-  };
-  getCity = (event) => {
-    this.setState({ city: event.target.value });
+  const getCity = (event) => {
+    // this.setState({ city: event.target.value });`
+    setInfo({ ...info, city: event.target.value });
   };
 
-  saveOrder = () => {
+  const saveOrder = () => {
     const order = {
-      orts: this.props.ingredients,
-      dun: this.props.price,
+      orts: props.ingredients,
+      dun: props.price,
       address: {
-        name: this.state.name,
-        city: this.state.city,
-        street: this.state.street,
+        name: info.name,
+        city: info.city,
+        street: info.street,
       },
     };
-    axios.post('/orders.json' , order).then(this.setState({spinner:true}))
-    .catch((err)=> {
-      console.log(err)
-    }).finally(()=> {
-      this.setState({spinner:false});
+    props.saveOrder(order);
+    if(props.newOrderStatus.finished && !props.newOrderStatus.error) {
+      nav('/orders')
+    }
+  };  
 
-    })
+  const goBack = () => {
+    nav("/");
+  };
 
+  return (
+    <div className={css.ContactData}>
+      <h4>Нийт үнэ : {props.price}₮ </h4>
+      <input
+        onChange={getName}
+        type="text"
+        name="name"
+        placeholder="Таны нэр"
+      />
+      <input
+        onChange={getStreet}
+        type="text"
+        name="street"
+        placeholder="Таны хаяг"
+      />
+      <input
+        onChange={getCity}
+        type="text"
+        name="city"
+        placeholder="Таны хот"
+      />
+      <Button text="ЗАХИАЛГЫГ ЦУЦЛАХ" cName="error" btnOnClick={goBack} />
+      <Button text="ИЛГЭЭХ" cName="success" btnOnClick={saveOrder} />
+    </div>
+  );
+};
 
-  }
-  render() {
-    return (
-      this.state.spinner ? <Spinner spinner={this.state.spinner}/> : (
-        <div className={css.ContactData}>
-          <h4>Нийт үнэ : {this.props.price}₮ </h4>
-          <input
-            onChange={this.getName}
-            type="text"
-            name="name"
-            placeholder="Таны нэр"
-          />
-          <input
-            onChange={this.getStreet}
-            type="text"
-            name="street"
-            placeholder="Таны хаяг"
-          />
-          <input
-            onChange={this.getCity}
-            type="text"
-            name="city"
-            placeholder="Таны хот"
-          />
-          <Button text="ЗАХИАЛГЫГ ЦУЦЛАХ" cName="error" />
-          <Button text="ИЛГЭЭХ" cName="success" btnOnClick={this.saveOrder} />
-        </div>
-      )
-    );
-  }
-  
-}
 const mapStateToProps = (state) => {
   return {
-    ingredients: state.ingredients,
-    price : state.price
-  }
-}
+    price: state.burgerReducer.price,
+    ingredients: state.burgerReducer.ingredients,
+    newOrderStatus: state.orderReducer.newOrder,
 
-export default connect(mapStateToProps)(ContactData);
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    saveOrder: (newOrder) => dispatch(actions.saveOrder(newOrder)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactData);

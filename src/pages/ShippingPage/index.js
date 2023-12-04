@@ -1,24 +1,16 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import {connect} from 'react-redux'
 import css from "./style.module.css";
 import Burger from "../../components/Burger";
-import Button from "../../components/General/Button";
 import ContactData from "../../components/ContactData";
+import Spinner from "../../components/General/Spinner";
 
 class ShippingPage extends React.Component {
-  // state = {
-  //   ingredients: {
-  //     salad: 1,
-  //     bacon: 2,
-  //     meat: 2,
-  //     cheese: 0,
-  //   },
-  // };
-
   showContactInfo = () => {};
   render() {
-    return (
+    return  this.props.newOrderStatus.saving ? (
+      <Spinner />
+    ) :(
       <div className={css.ShippingPage}>
       <p style={{ fontSize: "24px", marginBottom: "1rem" }}>
         <strong>Таны захиалга амттай байна гэдэгт итгэлтэй байна</strong>
@@ -35,8 +27,9 @@ class ShippingPage extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    ingredients : state.ingredients,
-    price: state.price
+    ingredients : state.burgerReducer.ingredients,
+    price: state.burgerReducer.price,
+    newOrderStatus : state.orderReducer.newOrder
   }
 } 
 

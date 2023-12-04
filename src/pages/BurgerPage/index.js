@@ -4,7 +4,6 @@ import css from "./style.module.css";
 import BurgerControlers from "../../components/BuildControlers";
 import Modal from "../../components/General/Modal";
 import OrderSummary from "../../components/OrderSummary";
-import Spinner from "../../components/General/Spinner";
 
 class BurgerPage extends React.Component {
   constructor() {
@@ -30,7 +29,6 @@ class BurgerPage extends React.Component {
         >
           <OrderSummary closeConfirmModal={this.closeConfirmModal} />
         </Modal>
-        <Spinner spinner={this.state.spinner} />
         <Burger />
         <BurgerControlers showConfirmModal={this.showConfirmModal} />
       </div>

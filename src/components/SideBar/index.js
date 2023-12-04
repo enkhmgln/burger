@@ -9,6 +9,7 @@ const SideBar = ({ showSideBar, toggleSideBar }) => {
     <div>
       <Shadow show={showSideBar} close={toggleSideBar} />
       <div
+        onClick={toggleSideBar}
         className={`${css.SideBar} ${showSideBar ? css["Open"] : css["Close"]}`}
       >
         <div className={css.Logo}>

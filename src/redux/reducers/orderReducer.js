@@ -1,29 +1,64 @@
 const initialState = {
-  orders: [
-    [
-      "-Nkm6UCrk6bGBWmpvCO3",
-      {
-        address: {
-          city: "Ulaanbaatar",
-          name: "Энх-амгалан",
-          street: "10r horoolol , 32r bair",
-        },
-        dun: 3300,
-        orts: { bacon: 1, cheese: 1, meat: 1, salad: 1 },
-      },
-    ],
-  ],
+  orders: [],
   spinner: false,
+  error: null,
+  newOrder: {
+    saving: false,
+    finished: false,
+    error: null,
+  },
 };
 
 const reducer = (state = initialState, action) => {
-  if (action.type === "GET_ORDERS") {    
-    return {
-      ...state,
-      spinner : true,
-    }
+  switch (action.type) {
+    case "GET_ORDERS_START":
+      return {
+        ...state,
+        spinner: true,
+      };
+    case "GET_ORDERS_SUCCESS":
+      return {
+        ...state,
+        spinner: false,
+        orders: action.orders,
+      };
+    case "GET_ORDERS_FAILED":
+      return {
+        ...state,
+        spinner: false,
+        error: action.error,
+      };
+    case "SAVE_ORDER_STARTED":
+      return {
+        ...state,
+        newOrder: {
+          ...state.newOrder,
+          saving: true,
+        },
+      };
+    case "ORDER_SAVED_SUCCESSFULLY":
+      return {
+        ...state,
+        newOrder: {
+          ...state.newOrder,
+          finished: true,
+          saving: false,
+          error: null,
+        },
+      };
+    case "ORDER_SAVED_FAILED":
+      return {
+        ...state,
+        newOrder: {
+          ...state.newOrder,
+          saving: false,
+          finished: false,
+          error: action.error,
+        },
+      };
+    default:
+      return state;
   }
-  return state;
 };
 
 export default reducer;
