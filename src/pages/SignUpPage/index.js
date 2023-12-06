@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { Navigate } from "react-router-dom";
+
 import css from "./style.module.css";
 import Button from "../../components/General/Button";
 import * as actions from "../../redux/actions/signUpAction";
@@ -9,7 +11,17 @@ const SignUp = (props) => {
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [email, setEmail] = useState("");
+  const [errorMessage, setErrorMessage] = useState(props.error);
   const [matchedPassword, setMatchedPassword] = useState("");
+  // switch (errorMessage) {
+  //   case "INVALID_EMAIL":
+  //     setErrorMessage("Тохирох и-мэйл хаяг оруулна уу");
+  //     break;
+  //   case "EMAIL_EXISTS":
+  //     setErrorMessage("Хэрэглэгч аль хэдийн бүртгэлтэй байна.");
+  //     break;
+  // }
+
   const validatePassword = () => {
     if (password1 === password2) {
       props.signUpUser(email, password1);
@@ -19,10 +31,11 @@ const SignUp = (props) => {
     }
   };
 
-  return (
-    
-
-      props.saving ? <Spinner/> : <div className={css.SignUp}>
+  return props.saving ? (
+    <Spinner />
+  ) : (
+    <div className={css.SignUp}>
+      {props.userID && <Navigate to="/orders" />}
       <h1 style={{ margin: "0.5rem 0" }}>Бүртгэлийн хэсэг </h1>
       <h4>Та өөрийн мэдээллээ оруулна уу.</h4>
       <input
@@ -47,15 +60,17 @@ const SignUp = (props) => {
         }}
       />
       {<p className={css.PasswordNotMatching}> {matchedPassword}</p>}
+      {<p className={css.PasswordNotMatching}> {props.error}</p>}
+
       <Button cName="success" text="Бүртгүүлэх" btnOnClick={validatePassword} />
     </div>
-    
-   
   );
 };
 const mapStateToProps = (state) => {
   return {
     saving: state.signUpReducer.saving,
+    error: state.signUpReducer.backendError,
+    userID: state.signUpReducer.userID,
   };
 };
 
