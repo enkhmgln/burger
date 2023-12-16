@@ -1,14 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import * as actions from "../../redux/actions/loginAction";
+
 import css from "./style.module.css";
 import Button from "../../components/General/Button";
+import Spinner from "../../components/General/Spinner";
 
-const Login = () => {
+const Login = (props) => {
+  const navigate = useNavigate()
   const [password, setPassword] = useState("");
-  const [email , setEmail] = useState('');
-  return (
+  const [email, setEmail] = useState("");
+
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    switch (props.message) {
+      case "INVALID_LOGIN_CREDENTIALS":
+        setMessage("И-мэйл эсвэл нууц үг буруу байна.");
+        break;
+      case "TOO_MANY_ATTEMPTS_TRY_LATER : Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.":
+        setMessage("Түр хүлээж байгаад дахин оролдон уу");
+        break;
+      default:
+        setMessage("Алдаа гарлаа");
+        break;
+    }
+  }, [props.message]);
+
+  const login = () => {
+    props.loginUser(email, password);
+  };
+  return props.logginIn ? (
+    <Spinner />
+  ) : (
     <div className={css.Login}>
+      {props.userID && navigate("/orders")}
       <h1>Нэвтрэх </h1>
-      <input type="input" placeholder="Имэйл хаягаа оруулна уу"  onChange={(event) => {setEmail(event.target.value)}}/>
+      <input
+        type="input"
+        placeholder="Имэйл хаягаа оруулна уу"
+        onChange={(event) => {
+          setEmail(event.target.value);
+        }}
+      />
       <input
         type="password"
         placeholder="Нууц үгээ оруулна уу"
@@ -16,11 +51,27 @@ const Login = () => {
           setPassword(event.target.value);
         }}
       />
-     
-      <Button cName="success" text="Нэвтрэх"/>
+      {props.message && <p className="error">{message}</p>}
 
+      <Button cName="success" text="Нэвтрэх" btnOnClick={login} />
     </div>
   );
 };
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    message: state.loginSignUpReducer.backendError,
+    userID: state.loginSignUpReducer.userID,
+    logginIn: state.loginSignUpReducer.logginIn,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loginUser: (email, password) => {
+      dispatch(actions.loginUser(email, password));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -39,6 +39,7 @@ const ContactData = (props) => {
 
   const saveOrder = () => {
     const order = {
+      userID : props.userID,
       orts: props.ingredients,
       dun: props.price,
       address: {
@@ -87,7 +88,7 @@ const mapStateToProps = (state) => {
     price: state.burgerReducer.price,
     ingredients: state.burgerReducer.ingredients,
     newOrderStatus: state.orderReducer.newOrder,
-
+    userID : state.loginSignUpReducer.userID
   };
 };
 const mapDispatchToProps = (dispatch) => {

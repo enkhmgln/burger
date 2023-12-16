@@ -11,8 +11,11 @@ const SignUp = (props) => {
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [email, setEmail] = useState("");
-  const [errorMessage, setErrorMessage] = useState(props.error);
+  // const [errorMessage, setErrorMessage] = useState(props.error);
   const [matchedPassword, setMatchedPassword] = useState("");
+
+
+
   // switch (errorMessage) {
   //   case "INVALID_EMAIL":
   //     setErrorMessage("Тохирох и-мэйл хаяг оруулна уу");
@@ -30,13 +33,12 @@ const SignUp = (props) => {
       setMatchedPassword("Нууц үг хоорондоо таарахгүй байна.");
     }
   };
-
   return props.saving ? (
     <Spinner />
-  ) : (
-    <div className={css.SignUp}>
-      {props.userID && <Navigate to="/orders" />}
+    ) : (
+      <div className={css.SignUp}>
       <h1 style={{ margin: "0.5rem 0" }}>Бүртгэлийн хэсэг </h1>
+      {props.userID && <Navigate to='/' />}
       <h4>Та өөрийн мэдээллээ оруулна уу.</h4>
       <input
         type="email"
@@ -59,18 +61,19 @@ const SignUp = (props) => {
           setPassword2(event.target.value);
         }}
       />
-      {<p className={css.PasswordNotMatching}> {matchedPassword}</p>}
-      {<p className={css.PasswordNotMatching}> {props.error}</p>}
+      {matchedPassword&&<p className='error'> {matchedPassword}</p>}
+      {props.error&&<p className='error'> {props.error}</p>}
 
       <Button cName="success" text="Бүртгүүлэх" btnOnClick={validatePassword} />
     </div>
   );
 };
 const mapStateToProps = (state) => {
+
   return {
-    saving: state.signUpReducer.saving,
-    error: state.signUpReducer.backendError,
-    userID: state.signUpReducer.userID,
+    saving: state.loginSignUpReducer.saving,
+    error: state.loginSignUpReducer.backendError,
+    userID: state.loginSignUpReducer.userID,
   };
 };
 

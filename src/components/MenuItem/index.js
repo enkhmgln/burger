@@ -6,7 +6,7 @@ const MenuItem = (props) => {
   return (
     <>
       <li className={`${css.MenuItem} `}>
-        <NavLink
+        <NavLink  onClick={props.onClick}
           className={({ isActive }) => (isActive ? css.active : "")}
           to={`${props.link}`}
         >

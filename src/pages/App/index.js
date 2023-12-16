@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import {connect} from 'react-redux'
+
 import css from "./style.module.css";
 import Toolbar from "../../components/Toolbar";
 import BurgerPage from "../BurgerPage";
@@ -35,11 +37,18 @@ class App extends Component {
             <Route path="/shipping" Component={ShippingPage} />
             <Route path="/orders" Component={OrderPage} />
             <Route path="/login" Component={LoginPage} />
-            <Route path="/sign-up" Component={SignUpPage} />
+            <Route path="/signup" Component={SignUpPage} />
           </Routes>
         </main>
       </div>
     );
   }
 }
-export default App;
+
+const mapStateToProps = state => {
+  return {
+    userID : state.loginSignUpReducer.userID
+  }
+}
+
+export default connect(mapStateToProps)(App);

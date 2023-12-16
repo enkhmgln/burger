@@ -10,7 +10,7 @@ import * as actions from '../../redux/actions/orderAction'
 class OrderPage extends React.Component {
   
   componentDidMount() {
-    this.props.getOrders()
+    this.props.getOrders(this.props.userID)
     // this.setState({ spinner: true });
   
   }
@@ -37,20 +37,25 @@ class OrderPage extends React.Component {
             );
           })
         )}
+        {this.props.userID}
+        <p>{this.props.error}</p>
       </div>
     );
   }
 }
 const mapStateToProps = (state) => {
+  
   return {
     orders:state.orderReducer.orders,
-    spinner : state.orderReducer.spinner
+    spinner : state.orderReducer.spinner,
+    error: state.orderReducer.error,
+    userID : state.loginSignUpReducer.userID
   }
 }
 
 const mapDispatchToProps =(dispatch) => {
   return {
-    getOrders : ()=> {dispatch(actions.getOrders())}
+    getOrders : (userID)=> {dispatch(actions.getOrders(userID))}
   }
 }
 

@@ -9,7 +9,7 @@ import App from "./pages/App";
 import "./index.css";
 import burgerReducer from "./redux/reducers/burgerReducer";
 import orderReducer from "./redux/reducers/orderReducer";
-import signUpReducer from "./redux/reducers/signUpReducer";
+import loginSignUpReducer from "./redux/reducers/loginSignUpReducer";
 
 const loggingMiddleware = (store) => {
   return (next) => {
@@ -31,7 +31,7 @@ const middleWares = [loggingMiddleware, thunk];
 const reducers = combineReducers({
   burgerReducer: burgerReducer,
   orderReducer,
-  signUpReducer,
+  loginSignUpReducer,
 });
 
 const store = createStore(

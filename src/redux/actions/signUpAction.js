@@ -43,3 +43,10 @@ export const signUpUserFailed = (error) => {
     error: error.response.data.error.message
   };
 };
+
+
+export const logout = () => {
+  return {
+    type : 'LOGOUT'
+  }
+}

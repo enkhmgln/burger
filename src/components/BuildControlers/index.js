@@ -41,7 +41,7 @@ const BuildControllers = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  console.log(state)
+
   return {
     ingredients : state.burgerReducer.ingredients,
     ingredientNames:state.burgerReducer.ingredientNames,

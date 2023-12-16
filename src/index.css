@@ -10,3 +10,8 @@ a {
 /* li {
   list-style: none;
 } */
+.error {
+  color: red;
+  font-size: 20px;
+  font-weight: bolder;
+}

@@ -1,12 +1,13 @@
-import axios from "../../axios";
+import axios from "../../axios-orders";
 
-export const getOrders = () => {
+export const getOrders = (props) => {
+
   return function (dispatch) {
     // ЗАХИАЛГЫГ ТАТАЖ АВАХ ГЭДГИЙГ МЭДЭГДЭНЭ
     // ЭНИЙГ ХҮЛЭЭЖ АВААД SPINNER ажиллаж эхэлнэ
     dispatch(getOrdersStart());
     axios
-      .get("/orders.json")
+      .get(`/orders.json?orderBy="userID"&equalTo="${props.userID}"`)
       .then((res) => {
         const receivedOrders = Object.entries(res.data).reverse();
         dispatch(getOrdersSuccess(receivedOrders));
