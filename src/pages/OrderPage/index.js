@@ -1,18 +1,16 @@
 import React from "react";
-import {connect} from 'react-redux'
+import { connect } from "react-redux";
 
 import css from "./style.module.css";
 
 import Order from "../../components/Order";
 import Spinner from "../../components/General/Spinner";
-import * as actions from '../../redux/actions/orderAction'
+import * as actions from "../../redux/actions/orderAction";
 
 class OrderPage extends React.Component {
-  
   componentDidMount() {
-    this.props.getOrders(this.props.userID)
+    this.props.getOrders(this.props.userID);
     // this.setState({ spinner: true });
-  
   }
   render() {
     // Ирсэн json - ыг string болгодог функц ==> JSON.stringify
@@ -38,25 +36,25 @@ class OrderPage extends React.Component {
           })
         )}
         {this.props.userID}
-        <p>{this.props.error}</p>
       </div>
     );
   }
 }
 const mapStateToProps = (state) => {
-  
   return {
-    orders:state.orderReducer.orders,
-    spinner : state.orderReducer.spinner,
+    orders: state.orderReducer.orders,
+    spinner: state.orderReducer.spinner,
     error: state.orderReducer.error,
-    userID : state.loginSignUpReducer.userID
-  }
-}
+    userID: state.loginSignUpReducer.userID,
+  };
+};
 
-const mapDispatchToProps =(dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    getOrders : (userID)=> {dispatch(actions.getOrders(userID))}
-  }
-}
+    getOrders: (userID) => {
+      dispatch(actions.getOrders(userID));
+    },
+  };
+};
 
-export default connect(mapStateToProps,mapDispatchToProps)(OrderPage);
+export default connect(mapStateToProps, mapDispatchToProps)(OrderPage);
