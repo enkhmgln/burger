@@ -57,13 +57,11 @@ class App extends Component {
         />
         <main className={css.main}>
           <Routes>
-            <>
-              <Route path="/shipping" Component={ShippingPage} />
-              <Route path="/orders" Component={OrderPage} />
-              <Route path="/" Component={BurgerPage} />
-              <Route path="/login" Component={LoginPage} />
-              <Route path="/signup" Component={SignUpPage} />
-            </>
+            <Route path="/shipping" element={<ShippingPage />} />
+            <Route path="/orders" element={<OrderPage />} />
+            <Route path="/" element={<BurgerPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
           </Routes>
         </main>
       </div>

@@ -12,7 +12,13 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
-  // const [message, setMessage] = useState("");
+  const getPassword = (event) => {
+    setPassword(event.target.value);
+  };
+  const getEmail = (event) => {
+    setEmail(event.target.value);
+  };
+  //  const [message, setMessage] = useState("");
 
   // useEffect(() => {
   //   switch (props.message) {
@@ -39,17 +45,13 @@ const Login = (props) => {
       <h1>Нэвтрэх </h1>
       <input
         type="input"
-        placeholder="Имэйл хаягаа оруулна уу"
-        onChange={(event) => {
-          setEmail(event.target.value);
-        }}
+        placeholder="И-мэйл хаягаа оруулна уу"
+        onChange={(event) => getEmail(event)}
       />
       <input
         type="password"
         placeholder="Нууц үгээ оруулна уу"
-        onChange={(event) => {
-          setPassword(event.target.value);
-        }}
+        onChange={(event) => getPassword(event)}
       />
       {props.message && <p className="error">{props.message}</p>}
 

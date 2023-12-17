@@ -8,44 +8,35 @@ import Button from "../General/Button";
 import { useNavigate } from "react-router-dom";
 
 const ContactData = (props) => {
-  const [info, setInfo] = useState({
-    name: null,
-    street: null,
-    city: null,
-  });
+  const [name, setName] = useState();
+  const [street, setStreet] = useState();
+  const [city, setCity] = useState();
   const nav = useNavigate();
-  // state = {
-  //   name: null,
-  //   street: null,
-  //   city: null,
-  // };
-  const getName = (event) => {
-    // this.setState({ name: event.target.value });
-    setInfo({ ...info, name: event.target.value });
-  };
-  const getStreet = (event) => {
-    // this.setState({ street: event.target.value });
-    setInfo({ ...info, street: event.target.value });
-  };
-  const getCity = (event) => {
-    // this.setState({ city: event.target.value });`
-    setInfo({ ...info, city: event.target.value });
-  };
+
   useEffect(() => {
     if (props.newOrderStatus.finished && !props.newOrderStatus.error) {
       nav("/orders");
     }
   }, [props.newOrderStatus.finished, props.newOrderStatus.error, nav]);
 
+  const getName = (event) => {
+    setName(event.target.value);
+  };
+  const getStreet = (event) => {
+    setStreet(event.target.value);
+  };
+  const getCity = (event) => {
+    setCity(event.target.value);
+  };
   const saveOrder = () => {
     const order = {
       userID: props.userID,
       orts: props.ingredients,
       dun: props.price,
       address: {
-        name: info.name,
-        city: info.city,
-        street: info.street,
+        name,
+        city: city,
+        street: street,
       },
     };
     props.saveOrder(order);
