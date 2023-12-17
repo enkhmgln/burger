@@ -15,8 +15,13 @@ export const signUpUser = (email, password) => {
         data
       )
       // Амжилттай бүртгүүлвэл :
-      .then((res) => {
-        dispatch(signUpUserSuccess(res.data));
+      .then((result) => {
+        // localstorage - руу хадгална.
+        const token = result.data.idToken;
+        const userID = result.data.localId;
+        localStorage.setItem("token", token);
+        localStorage.setItem("userID", userID);
+        dispatch(signUpUserSuccess(token, userID));
       })
       // Бүртгүүлэхэд алдаа гарвал :
       .catch((err) => {
@@ -31,10 +36,11 @@ export const signUpUserStarted = () => {
     type: "SIGNUP_USER_STARTED",
   };
 };
-export const signUpUserSuccess = (resultData) => {
+export const signUpUserSuccess = (token, userID) => {
   return {
     type: "SIGNUP_USER_SUCCESS",
-    resultData: resultData,
+    token,
+    userID,
   };
 };
 export const signUpUserFailed = (error) => {
@@ -47,7 +53,18 @@ export const signUpUserFailed = (error) => {
 export const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("userID");
+  localStorage.removeItem("expireDate");
+  localStorage.removeItem("refreshToken");
+
   return {
     type: "LOGOUT",
+  };
+};
+
+export const autoLogoutAfterMillSec = (time) => {
+  return function (dispatch) {
+    setTimeout(() => {
+      dispatch(logout());
+    }, time);
   };
 };
