@@ -11,6 +11,7 @@ import ShippingPage from "../ShippingPage";
 import LoginPage from "../LoginPage";
 import SignUpPage from "../SignUpPage";
 import * as actions from "../../redux/actions/loginAction";
+import * as signupActions from "../../redux/actions/signUpAction";
 
 class App extends Component {
   constructor() {
@@ -28,9 +29,22 @@ class App extends Component {
   componentDidMount = () => {
     const token = localStorage.getItem("token");
     const userID = localStorage.getItem("userID");
-    // Хэрвээ localStorage дээр token байвал аваад нэвтрэнэ.
+    // const refreshToken = localStorage.getItem("refreshToken");
+    const expireDate = new Date(localStorage.getItem("expireDate"));
     if (token) {
-      this.props.autoLogin(token, userID);
+      // Token - ны хугацаа дуусаагүЙ байвал:
+      if (expireDate > new Date()) {
+        this.props.autoLogin(token, userID);
+        // Token хүчингүй болох хугацааг тоооцоолж
+        // Хэсэг хугацааны дараа logout хийнэ
+        this.props.autoLogoutAfterMillSec(
+          expireDate.getTime() - new Date().getTime()
+        );
+      }
+      // Хугацаа нь дууссан байвал :
+      else {
+        this.props.logout();
+      }
     }
   };
   render() {
@@ -67,6 +81,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     autoLogin: (token, userID) => {
       dispatch(actions.loginUserSuccess(token, userID));
+    },
+    logout: () => {
+      dispatch(signupActions.logout());
+    },
+    autoLogoutAfterMillSec: (time) => {
+      dispatch(signupActions.autoLogoutAfterMillSec(time));
     },
   };
 };
