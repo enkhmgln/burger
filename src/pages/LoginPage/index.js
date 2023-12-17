@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as actions from "../../redux/actions/loginAction";
@@ -8,25 +8,25 @@ import Button from "../../components/General/Button";
 import Spinner from "../../components/General/Spinner";
 
 const Login = (props) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    switch (props.message) {
-      case "INVALID_LOGIN_CREDENTIALS":
-        setMessage("И-мэйл эсвэл нууц үг буруу байна.");
-        break;
-      case "TOO_MANY_ATTEMPTS_TRY_LATER : Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.":
-        setMessage("Түр хүлээж байгаад дахин оролдон уу");
-        break;
-      default:
-        setMessage("Алдаа гарлаа");
-        break;
-    }
-  }, [props.message]);
+  // useEffect(() => {
+  //   switch (props.message) {
+  //     case "INVALID_LOGIN_CREDENTIALS":
+  //       setMessage("И-мэйл эсвэл нууц үг буруу байна.");
+  //       break;
+  //     case "TOO_MANY_ATTEMPTS_TRY_LATER : Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.":
+  //       setMessage("Түр хүлээж байгаад дахин оролдон уу");
+  //       break;
+  //     default:
+  //       setMessage("Алдаа гарлаа");
+  //       break;
+  //   }
+  // }, [props.message]);
 
   const login = () => {
     props.loginUser(email, password);
@@ -51,7 +51,7 @@ const Login = (props) => {
           setPassword(event.target.value);
         }}
       />
-      {props.message && <p className="error">{message}</p>}
+      {props.message && <p className="error">{props.message}</p>}
 
       <Button cName="success" text="Нэвтрэх" btnOnClick={login} />
     </div>

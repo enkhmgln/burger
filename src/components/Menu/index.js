@@ -11,14 +11,12 @@ const Menu = (props) => {
 
   const logoutHandler = async () => {
     await props.logout();
-    navigate("/");
+    navigate("/login");
   };
 
   return (
     <>
       <ul className={css.Menu}>
-        <p> {props.userID}</p>
-
         {!props.userID ? (
           <>
             <MenuItem link="/login" text="НЭВТРЭХ" />

@@ -1,13 +1,16 @@
 import axios from "../../axios-orders";
 
-export const getOrders = (props) => {
-
-  return function (dispatch) {
+export const getOrders = (userID) => {
+  // getState function dispatch-тай хамт орж ирдэг ба state  - ийг буцааадаг функц
+  return function (dispatch, getState) {
     // ЗАХИАЛГЫГ ТАТАЖ АВАХ ГЭДГИЙГ МЭДЭГДЭНЭ
     // ЭНИЙГ ХҮЛЭЭЖ АВААД SPINNER ажиллаж эхэлнэ
     dispatch(getOrdersStart());
+
+    const token = getState().loginSignUpReducer.token;
+
     axios
-      .get(`/orders.json?orderBy="userID"&equalTo="${props.userID}"`)
+      .get(`/orders.json?&auth=${token}&orderBy="userID"&equalTo="${userID}"`)
       .then((res) => {
         const receivedOrders = Object.entries(res.data).reverse();
         dispatch(getOrdersSuccess(receivedOrders));
@@ -40,12 +43,13 @@ export const getOrdersFailed = (error) => {
 
 // Захиалгыг хадгалах хэсэг
 export const saveOrder = (newOrder) => {
-  return function (dispatch) {
+  return function (dispatch, getState) {
     // Spinner эргэлдүүлнэ .
     dispatch(saveOrderStart());
+    const token = getState().loginSignUpReducer.token;
     // Бааз руу Order-ийг хадгалах
     axios
-      .post("/orders.json", newOrder)
+      .post(`/orders.json?auth=${token}`, newOrder)
       .then((res) => {
         dispatch(saveOrderSuccess());
       })

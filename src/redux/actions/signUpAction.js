@@ -14,11 +14,11 @@ export const signUpUser = (email, password) => {
         "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC9l_6Tncm65WBHBxUx5Nic2fCnmQjFjG8",
         data
       )
-      // Амжилттай бүртгүүлвэл : 
+      // Амжилттай бүртгүүлвэл :
       .then((res) => {
         dispatch(signUpUserSuccess(res.data));
       })
-      // Бүртгүүлэхэд алдаа гарвал : 
+      // Бүртгүүлэхэд алдаа гарвал :
       .catch((err) => {
         dispatch(signUpUserFailed(err));
       });
@@ -34,19 +34,20 @@ export const signUpUserStarted = () => {
 export const signUpUserSuccess = (resultData) => {
   return {
     type: "SIGNUP_USER_SUCCESS",
-    resultData : resultData
+    resultData: resultData,
   };
 };
 export const signUpUserFailed = (error) => {
   return {
     type: "SIGNUP_USER_FAILED",
-    error: error.response.data.error.message
+    error: error.response.data.error.message,
   };
 };
 
-
 export const logout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("userID");
   return {
-    type : 'LOGOUT'
-  }
-}
+    type: "LOGOUT",
+  };
+};

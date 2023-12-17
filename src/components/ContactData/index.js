@@ -31,15 +31,15 @@ const ContactData = (props) => {
     // this.setState({ city: event.target.value });`
     setInfo({ ...info, city: event.target.value });
   };
-  useEffect(()=> {
-    if(props.newOrderStatus.finished && !props.newOrderStatus.error) {
-      nav('/orders')
+  useEffect(() => {
+    if (props.newOrderStatus.finished && !props.newOrderStatus.error) {
+      nav("/orders");
     }
-  }, [props.newOrderStatus.finished , props.newOrderStatus.error , nav])
+  }, [props.newOrderStatus.finished, props.newOrderStatus.error, nav]);
 
   const saveOrder = () => {
     const order = {
-      userID : props.userID,
+      userID: props.userID,
       orts: props.ingredients,
       dun: props.price,
       address: {
@@ -49,8 +49,7 @@ const ContactData = (props) => {
       },
     };
     props.saveOrder(order);
-  
-  };  
+  };
 
   const goBack = () => {
     nav("/");
@@ -58,7 +57,9 @@ const ContactData = (props) => {
 
   return (
     <div className={css.ContactData}>
+      {props.error && <p>Алдаа : {props.error.message}</p>}
       <h4>Нийт үнэ : {props.price}₮ </h4>
+
       <input
         onChange={getName}
         type="text"
@@ -88,7 +89,8 @@ const mapStateToProps = (state) => {
     price: state.burgerReducer.price,
     ingredients: state.burgerReducer.ingredients,
     newOrderStatus: state.orderReducer.newOrder,
-    userID : state.loginSignUpReducer.userID
+    userID: state.loginSignUpReducer.userID,
+    error: state.orderReducer.newOrder.error,
   };
 };
 const mapDispatchToProps = (dispatch) => {
