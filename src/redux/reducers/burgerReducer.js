@@ -37,6 +37,8 @@ const burgerReducer = (state = initialState, action) => {
       price: newPrice,
       isPurchasing: newPrice > 1000,
     };
+  } else if (action.type === "CLEARING_ORDER") {
+    return initialState;
   }
   return state;
 };

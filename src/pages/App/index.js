@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import css from "./style.module.css";
@@ -12,21 +12,36 @@ import LoginPage from "../LoginPage";
 import SignUpPage from "../SignUpPage";
 import * as actions from "../../redux/actions/loginAction";
 import * as signupActions from "../../redux/actions/signUpAction";
+import Logout from "../Logout";
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      showSideBar: false,
-    };
-  }
-  toggleSideBar = () => {
-    this.setState((prevState) => {
-      return { showSideBar: !prevState.showSideBar };
-    });
+const App = (props) => {
+  const [showSideBar, setShowSideBar] = useState(false);
+  const toggleSideBar = () => {
+    setShowSideBar((prevState) => !prevState);
   };
 
-  componentDidMount = () => {
+  // componentDidMount = () => {
+  //   const token = localStorage.getItem("token");
+  //   const userID = localStorage.getItem("userID");
+  //   // const refreshToken = localStorage.getItem("refreshToken");
+  //   const expireDate = new Date(localStorage.getItem("expireDate"));
+  //   if (token) {
+  //     // Token - ны хугацаа дуусаагүЙ байвал:
+  //     if (expireDate > new Date()) {
+  //       this.props.autoLogin(token, userID);
+  //       // Token хүчингүй болох хугацааг тоооцоолж
+  //       // Хэсэг хугацааны дараа logout хийнэ
+  //       this.props.autoLogoutAfterMillSec(
+  //         expireDate.getTime() - new Date().getTime()
+  //       );
+  //     }
+  //     // Хугацаа нь дууссан байвал :
+  //     else {
+  //       this.props.logout();
+  //     }
+  //   }
+  // };
+  useEffect(() => {
     const token = localStorage.getItem("token");
     const userID = localStorage.getItem("userID");
     // const refreshToken = localStorage.getItem("refreshToken");
@@ -34,40 +49,44 @@ class App extends Component {
     if (token) {
       // Token - ны хугацаа дуусаагүЙ байвал:
       if (expireDate > new Date()) {
-        this.props.autoLogin(token, userID);
+        props.autoLogin(token, userID);
         // Token хүчингүй болох хугацааг тоооцоолж
         // Хэсэг хугацааны дараа logout хийнэ
-        this.props.autoLogoutAfterMillSec(
+        props.autoLogoutAfterMillSec(
           expireDate.getTime() - new Date().getTime()
         );
       }
       // Хугацаа нь дууссан байвал :
       else {
-        this.props.logout();
+        props.logout();
       }
     }
-  };
-  render() {
-    return (
-      <div className={css.container}>
-        <Toolbar toggleSideBar={this.toggleSideBar} />
-        <SideBar
-          showSideBar={this.state.showSideBar}
-          toggleSideBar={this.toggleSideBar}
-        />
-        <main className={css.main}>
-          <Routes>
-            <Route path="/shipping" element={<ShippingPage />} />
-            <Route path="/orders" element={<OrderPage />} />
-            <Route path="/" element={<BurgerPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignUpPage />} />
-          </Routes>
-        </main>
-      </div>
-    );
-  }
-}
+  }, []);
+
+  return (
+    <div className={css.container}>
+      <Toolbar toggleSideBar={toggleSideBar} />
+      <SideBar showSideBar={showSideBar} toggleSideBar={toggleSideBar} />
+      <main className={css.main}>
+        <Routes>
+          {props.userID ? (
+            <>
+              <Route path="/logout" element={<Logout />} />
+              <Route path="/shipping" element={<ShippingPage />} />
+              <Route path="/orders" element={<OrderPage />} />
+              <Route path="/" element={<BurgerPage />} />
+            </>
+          ) : (
+            <>
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignUpPage />} />
+            </>
+          )}
+        </Routes>
+      </main>
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {

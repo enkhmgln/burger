@@ -76,3 +76,8 @@ export const saveOrderFailed = (error) => {
     error: error,
   };
 };
+export const clearOrder = () => {
+  return {
+    type: "CLEARING_ORDER",
+  };
+};

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import * as actions from "../../redux/actions/loginAction";
 
 import css from "./style.module.css";
@@ -36,12 +36,13 @@ const Login = (props) => {
 
   const login = () => {
     props.loginUser(email, password);
+    navigate("/orders");
   };
   return props.logginIn ? (
     <Spinner />
   ) : (
     <div className={css.Login}>
-      {props.userID && navigate("/orders")}
+      {props.userID && <Navigate to="/orders" relative />}
       <h1>Нэвтрэх </h1>
       <input
         type="input"

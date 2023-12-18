@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import * as actions from "../../redux/actions/orderAction";
-
 import css from "./style.module.css";
 import Button from "../General/Button";
 import { useNavigate } from "react-router-dom";
@@ -11,13 +10,20 @@ const ContactData = (props) => {
   const [name, setName] = useState();
   const [street, setStreet] = useState();
   const [city, setCity] = useState();
-  const nav = useNavigate();
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (props.newOrderStatus.finished && !props.newOrderStatus.error) {
-      nav("/orders");
+      navigate("/orders");
     }
-  }, [props.newOrderStatus.finished, props.newOrderStatus.error, nav]);
+    // Цэвэрлэгч функц
+    // Захиалгыг буцаагаад хоосон болгоно. Дараачийн захиалгад бэлдэнэ
+    return () => {
+      if (props.newOrderStatus.finished) {
+        props.clearOrder();
+      }
+    };
+    // eslint-disable-next-line
+  }, [props.newOrderStatus.finished]);
 
   const getName = (event) => {
     setName(event.target.value);
@@ -43,7 +49,7 @@ const ContactData = (props) => {
   };
 
   const goBack = () => {
-    nav("/");
+    navigate("/");
   };
 
   return (
@@ -87,6 +93,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     saveOrder: (newOrder) => dispatch(actions.saveOrder(newOrder)),
+    clearOrder: () => {
+      dispatch(actions.clearOrder());
+    },
   };
 };
 

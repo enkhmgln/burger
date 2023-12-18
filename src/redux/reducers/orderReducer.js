@@ -1,7 +1,9 @@
 const initialState = {
+  // load order
   orders: [],
   spinner: false,
   error: null,
+  // save order
   newOrder: {
     saving: false,
     finished: false,
@@ -54,6 +56,15 @@ const reducer = (state = initialState, action) => {
           saving: false,
           finished: false,
           error: action.error,
+        },
+      };
+    case "CLEARING_ORDER":
+      return {
+        ...state,
+        newOrder: {
+          saving: false,
+          finished: false,
+          error: null,
         },
       };
     default:
