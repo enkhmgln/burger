@@ -38,7 +38,7 @@ const SignUp = (props) => {
   ) : (
     <div className={css.SignUp}>
       <h1 style={{ margin: "0.5rem 0" }}>Бүртгэл үүсгэх </h1>
-      {props.userID && <Navigate to="/" />}
+      {props.userID && <Navigate to="/" replace />}
       <h4>Та өөрийн мэдээллээ оруулна уу.</h4>
       <input
         type="email"
