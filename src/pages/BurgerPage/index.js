@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { Navigate } from "react-router-dom";
 import Burger from "../../components/Burger";
 import css from "./style.module.css";
 import BurgerControlers from "../../components/BuildControlers";
 import Modal from "../../components/General/Modal";
 import OrderSummary from "../../components/OrderSummary";
 
-const BurgerPage = () => {
+const BurgerPage = (props) => {
   const [confirmOrder, setConfirmOrder] = useState(false);
 
   const showConfirmModal = () => {
@@ -17,6 +19,7 @@ const BurgerPage = () => {
 
   return (
     <div className={css.container}>
+      {props.userID == null ? <Navigate to={"/login"} replace /> : null}
       <Modal
         showConfirmModal={showConfirmModal}
         closeConfirmModal={closeConfirmModal}
@@ -30,4 +33,10 @@ const BurgerPage = () => {
   );
 };
 
-export default BurgerPage;
+const mapStateToProps = (state) => {
+  return {
+    userID: state.loginSignUpReducer.userID,
+  };
+};
+
+export default connect(mapStateToProps)(BurgerPage);

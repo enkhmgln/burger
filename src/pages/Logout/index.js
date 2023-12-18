@@ -7,7 +7,7 @@ const Logout = (props) => {
   useEffect(() => {
     props.logout();
   }, []);
-  return <Navigate to="/login" />;
+  return <Navigate to="/login" replace />;
 };
 
 const mapDispatchToProps = (dispatch) => {

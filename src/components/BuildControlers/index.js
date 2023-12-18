@@ -1,11 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import * as actions from '../../redux/actions/burgerAction'
 
 import BuildController from "../BuildControler";
 import css from "./_.module.css";
 
-const BuildControllers = (props) => { 
+const BuildControllers = (props) => {
   const disabledButton = { ...props.ingredients };
   for (let key in disabledButton) {
     disabledButton[key] = disabledButton[key] <= 0;
@@ -20,8 +19,6 @@ const BuildControllers = (props) => {
           <BuildController
             key={`${el[0]}${index}`}
             disabledButton={disabledButton}
-            addIngredient={props.addIngredient}
-            removeIngredient={props.removeIngredient}
             type={el[0]}
             ner={el[1]}
           />
@@ -41,20 +38,12 @@ const BuildControllers = (props) => {
 };
 
 const mapStateToProps = (state) => {
-
   return {
-    ingredients : state.burgerReducer.ingredients,
-    ingredientNames:state.burgerReducer.ingredientNames,
-    price :state.burgerReducer.price,
-    isPurchasing :state.burgerReducer.isPurchasing
+    ingredients: state.burgerReducer.ingredients,
+    ingredientNames: state.burgerReducer.ingredientNames,
+    price: state.burgerReducer.price,
+    isPurchasing: state.burgerReducer.isPurchasing,
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    addIngredient: ortsNer => dispatch(actions.addIngredient(ortsNer)),
-    removeIngredient: ortsNer => dispatch(actions.removeIngredient(ortsNer))
-  };
-};
-
-export default connect(mapStateToProps , mapDispatchToProps)(BuildControllers);
+export default connect(mapStateToProps)(BuildControllers);

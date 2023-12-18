@@ -42,7 +42,7 @@ const Login = (props) => {
     <Spinner />
   ) : (
     <div className={css.Login}>
-      {props.userID && <Navigate to="/orders" relative />}
+      {props.userID && <Navigate to="/orders" replace />}
       <h1>Нэвтрэх </h1>
       <input
         type="input"

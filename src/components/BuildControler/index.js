@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+import * as actions from "../../redux/actions/burgerAction";
 import css from "./css.module.css";
 
 const BuildControler = (props) => {
@@ -27,4 +29,11 @@ const BuildControler = (props) => {
   );
 };
 
-export default BuildControler;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addIngredient: (ortsNer) => dispatch(actions.addIngredient(ortsNer)),
+    removeIngredient: (ortsNer) => dispatch(actions.removeIngredient(ortsNer)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(BuildControler);

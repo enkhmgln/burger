@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 import css from "./style.module.css";
 
@@ -15,6 +16,7 @@ const OrderPage = (props) => {
   // console.log(JSON.stringify(this.state.orders))
   return (
     <div className={css.OrderPage}>
+      {!props.userID && <Navigate to={"/login"} replace />}
       <h1>Бүх захиалгууд</h1>
       {props.spinner ? (
         <Spinner spinner={props.spinner} />

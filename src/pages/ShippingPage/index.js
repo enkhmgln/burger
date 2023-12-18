@@ -5,6 +5,7 @@ import css from "./style.module.css";
 import Burger from "../../components/Burger";
 import ContactData from "../../components/ContactData";
 import Spinner from "../../components/General/Spinner";
+import { Navigate } from "react-router-dom";
 
 const ShippingPage = (props) => {
   // const navigate = useNavigate();
@@ -14,11 +15,13 @@ const ShippingPage = (props) => {
   // const contact = () => {
   //   navigate("contact");
   // };
+  console.log(props);
   return props.newOrderStatus.saving ? (
     <Spinner />
   ) : (
     <div className={css.ShippingPage}>
       <p style={{ fontSize: "24px", marginBottom: "1rem" }}>
+        {!props.userID && <Navigate to={"/login"} replace />}
         <strong>Таны захиалга амттай байна гэдэгт итгэлтэй байна</strong>
       </p>
       <p style={{ fontSize: "24px", marginBottom: "1rem" }}>
@@ -43,6 +46,7 @@ const mapStateToProps = (state) => {
     ingredients: state.burgerReducer.ingredients,
     price: state.burgerReducer.price,
     newOrderStatus: state.orderReducer.newOrder,
+    userID: state.loginSignUpReducer.userID,
   };
 };
 

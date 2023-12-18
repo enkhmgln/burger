@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
 
@@ -21,6 +21,9 @@ const SignUp = (props) => {
   //     setErrorMessage("Хэрэглэгч аль хэдийн бүртгэлтэй байна.");
   //     break;
   // }
+  // useEffect(() => {
+  //   setPassword2();
+  // }, email);
 
   const validatePassword = () => {
     if (password1 === password2) {

@@ -5,7 +5,7 @@ import css from "./style.module.css";
 import Toolbar from "../../components/Toolbar";
 import BurgerPage from "../BurgerPage";
 import SideBar from "../../components/SideBar";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import OrderPage from "../OrderPage";
 import ShippingPage from "../ShippingPage";
 import LoginPage from "../LoginPage";
@@ -69,19 +69,19 @@ const App = (props) => {
       <SideBar showSideBar={showSideBar} toggleSideBar={toggleSideBar} />
       <main className={css.main}>
         <Routes>
-          {props.userID ? (
-            <>
-              <Route path="/logout" element={<Logout />} />
-              <Route path="/shipping" element={<ShippingPage />} />
-              <Route path="/orders" element={<OrderPage />} />
-              <Route path="/" element={<BurgerPage />} />
-            </>
-          ) : (
-            <>
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/signup" element={<SignUpPage />} />
-            </>
-          )}
+          {/* {props.userID ? ( */}
+          <>
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/shipping" element={<ShippingPage />} />
+            <Route path="/orders" element={<OrderPage />} />
+            <Route path="/" element={<BurgerPage />} />
+          </>
+          {/* // ) : ( */}
+          <>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+          </>
+          {/* )} */}
         </Routes>
       </main>
     </div>
