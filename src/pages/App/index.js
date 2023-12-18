@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Suspense } from "react";
+import React, { useEffect, useState, Suspense, lazy } from "react";
 import { connect } from "react-redux";
 
 import css from "./style.module.css";
@@ -7,21 +7,25 @@ import SideBar from "../../components/SideBar";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import * as actions from "../../redux/actions/loginAction";
 import * as signupActions from "../../redux/actions/signUpAction";
-import Logout from "../Logout";
+import Spinner from "../../components/General/Spinner";
 
-const BurgerPage = React.lazy(() => {
+const Logout = lazy(() => {
+  return import("../Logout");
+});
+
+const BurgerPage = lazy(() => {
   return import("../BurgerPage");
 });
-const OrderPage = React.lazy(() => {
+const OrderPage = lazy(() => {
   return import("../OrderPage");
 });
-const ShippingPage = React.lazy(() => {
+const ShippingPage = lazy(() => {
   return import("../ShippingPage");
 });
-const LoginPage = React.lazy(() => {
+const LoginPage = lazy(() => {
   return import("../LoginPage");
 });
-const SignUpPage = React.lazy(() => {
+const SignUpPage = lazy(() => {
   return import("../SignUpPage");
 });
 
@@ -63,7 +67,7 @@ const App = (props) => {
       <Toolbar toggleSideBar={toggleSideBar} />
       <SideBar showSideBar={showSideBar} toggleSideBar={toggleSideBar} />
       <main className={css.main}>
-        <Suspense>
+        <Suspense fallback={<Spinner />}>
           <Routes>
             {/* Нэвтэрсэн хэрэглэгчийн үзэх боломжтой хуудас */}
             {props.userID && (
