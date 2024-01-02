@@ -36,5 +36,13 @@ const BuildControllers = (props) => {
     </div>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    ingredients: state.burgerReducer.ingredients,
+    price: state.burgerReducer.price,
+    isPurchasing: state.burgerReducer.isPurchasing,
+    ingredientNames: state.burgerReducer.ingredientNames,
+  };
+};
 
 export default connect(mapStateToProps)(BuildControllers);
