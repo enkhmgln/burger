@@ -1,10 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
+import { useContext } from "react";
 
+import BurgerContext from "../../context/BurgerContext";
 import BuildController from "../BuildControler";
 import css from "./_.module.css";
 
 const BuildControllers = (props) => {
+  console.log(BurgerContext);
+  const burgerContext = useContext(BurgerContext);
   const disabledButton = { ...props.ingredients };
   for (let key in disabledButton) {
     disabledButton[key] = disabledButton[key] <= 0;
@@ -13,6 +17,7 @@ const BuildControllers = (props) => {
     <div className={css.BuildControls}>
       <p>
         Бургерийн үнэ : <strong>{props.price}₮</strong>
+        {burgerContext}
       </p>
       {Object.entries(props.ingredientNames).map((el, index) => {
         return (

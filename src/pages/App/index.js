@@ -7,7 +7,7 @@ import SideBar from "../../components/SideBar";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import * as actions from "../../redux/actions/loginAction";
 import * as signupActions from "../../redux/actions/signUpAction";
-import Spinner from "../../components/General/Spinner";
+import BurgerContext from "../../context/BurgerContext";
 
 const Logout = lazy(() => {
   return import("../Logout");
@@ -67,22 +67,24 @@ const App = (props) => {
       <Toolbar toggleSideBar={toggleSideBar} />
       <SideBar showSideBar={showSideBar} toggleSideBar={toggleSideBar} />
       <main className={css.main}>
-        <Suspense fallback={<Spinner />}>
-          <Routes>
-            {/* Нэвтэрсэн хэрэглэгчийн үзэх боломжтой хуудас */}
-            {props.userID && (
-              <>
-                <Route path="/logout" element={<Logout />} />
-                <Route path="/shipping" element={<ShippingPage />} />
-                <Route path="/orders" element={<OrderPage />} />
-                <Route path="/" element={<BurgerPage />} />
-              </>
-            )}
+        <Suspense fallback={<div>Түр хүлээнэ үү...</div>}>
+          <BurgerContext.Provider value={"" + showSideBar}>
+            <Routes>
+              {/* Нэвтэрсэн хэрэглэгчийн үзэх боломжтой хуудас */}
+              {props.userID && (
+                <>
+                  <Route path="/logout" element={<Logout />} />
+                  <Route path="/shipping" element={<ShippingPage />} />
+                  <Route path="/orders" element={<OrderPage />} />
+                  <Route path="/" element={<BurgerPage />} />
+                </>
+              )}
 
-            {/* Бүх хүн үзэж болох хуудас*/}
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignUpPage />} />
-          </Routes>
+              {/* Login хийгээгүй хэрэглэгч үзэж болох хуудас*/}
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignUpPage />} />
+            </Routes>
+          </BurgerContext.Provider>
         </Suspense>
       </main>
     </div>
