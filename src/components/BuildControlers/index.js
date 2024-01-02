@@ -12,7 +12,7 @@ const BuildControllers = (props) => {
   return (
     <div className={css.BuildControls}>
       <p>
-        Бургерийн үнэ : <strong>{props.price}</strong>
+        Бургерийн үнэ : <strong>{props.price}₮</strong>
       </p>
       {Object.entries(props.ingredientNames).map((el, index) => {
         return (
@@ -35,15 +35,6 @@ const BuildControllers = (props) => {
       </button>
     </div>
   );
-};
-
-const mapStateToProps = (state) => {
-  return {
-    ingredients: state.burgerReducer.ingredients,
-    ingredientNames: state.burgerReducer.ingredientNames,
-    price: state.burgerReducer.price,
-    isPurchasing: state.burgerReducer.isPurchasing,
-  };
 };
 
 export default connect(mapStateToProps)(BuildControllers);
